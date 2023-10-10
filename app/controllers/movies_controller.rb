@@ -1,10 +1,20 @@
 class MoviesController < ApplicationController
+
+  def new
+    render template: "/movies/new"
+  end
+
   def index
     matching_movies = Movie.all
 
     @list_of_movies = matching_movies.order({ :created_at => :desc })
 
     render({ :template => "movies/index" })
+  end
+
+  def edit
+    @the_movie = Movie.where(id: params.fetch(:id))[0]
+    render template: "movies/edit"
   end
 
   def show
